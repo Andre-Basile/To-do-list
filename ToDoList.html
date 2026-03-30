@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <style>
+        *,body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #4285f4;
+        flex-direction: column;
+       }
+
+       .welcome{
+        opacity: 0;
+        animation: welcom 1s forwards;
+        animation-delay: 0.5s;
+       }
+
+       @keyframes welcom {
+        from{
+            transform: translate(40vw,100px);
+        }
+        to{
+            opacity: 1;
+        }
+       }
+       
+       
+       section{
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 0 10px #000;
+        width: 500px;
+        animation: comeIn 1s forwards;
+        animation-delay: 1.5s;
+
+        opacity: 0;
+       }
+       
+       section:hover{
+        transform: scale(1.04);
+       }
+
+       @keyframes comeIn {
+        from{
+            transform: translate(-40vw,100px);
+           }
+           to{
+            opacity: 1;
+           }
+
+       }
+       
+       h1{
+        text-align: center;
+        margin-bottom: 10px;
+       }
+       .container{
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+       }
+
+       input{
+        padding: auto;
+        width: 90%;
+        padding: 5px;
+        margin-right: 8px;
+        border: 1px solid #b5b2b2;
+        border-radius: 0 6px 6px 0;
+    }
+       button{
+        padding: 5px;
+        width: 10%;
+        cursor: pointer;
+       }
+
+       .NewTask{
+        border: 2px solid grey;
+        padding: 5px;
+        animation: comeSlowly 1s forwards;
+        overflow: hidden;
+       }
+
+       @keyframes comeSlowly {
+        from{
+            opacity: 0;
+            transform: translateY(100px);
+        }
+       }
+
+
+.TaskDiv{
+    font-size: 18px;
+    padding: 4px;
+    margin: 0.5em;
+    border: 1px solid black;
+    animation: Slowly 2s forwards;
+    border-radius: 5px;
+    box-shadow: 0 0 2px black;
+    word-wrap: break-word;
+    transition: 1s;
+}
+
+.TaskDiv:hover{
+    transform: scale(1.04);
+    cursor: pointer;
+}
+
+ @keyframes Slowly {
+        from{
+            opacity: 0;
+            transform: translateY((100px));
+        }
+       }
+    </style>
+</head>
+<body>
+    <p><h1 class="welcome">Bienvenue</h1></p>
+    <section>
+        <h1>To Do list</h1>
+        <div class="container">
+            <input type="text" placeholder="Ajouter une tâche..." id="inputfield">
+            <button id="addToDo" onclick="addtask()">+</button>
+        </div>
+        <div id="containTasks">
+        </div>
+    </section>
+    <script>
+
+     var addToDoButton = document.getElementById("addToDo");
+     var ToDoContainer = document.getElementById("containTasks");
+     var inputfield = document.getElementById("inputfield");
+      addToDoButton.onclick = function(){
+//Vérifier si l'input est valide(n'est pas vide)
+
+        if(inputfield.value.trim() != ""){
+ var NewDiv = document.createElement('div');
+ NewDiv.className = "TaskDiv";
+        }
+
+        //mettre le contenu de l'input dans le nouveau div créé
+
+        NewDiv.innerHTML = inputfield.value;
+        NewDiv.id = "Newest";
+
+        //Insérer le div créé dans le ToDoContainer
+        ToDoContainer.appendChild(NewDiv);
+
+        //vider le input 
+        inputfield.value = "";
+
+
+        //Si on clique une fois sur la tache créée,elle est barrée
+
+        NewDiv.addEventListener("click",function(){
+            NewDiv.style.textDecoration = "line-through";
+            NewDiv.style.background = "rgb(247,118,118)";
+        })
+        
+        //Si on clique deux fois sur unetache créée,elle est supprimée
+        NewDiv.addEventListener("dblclick",function(){
+            ToDoContainer.removeChild(NewDiv);
+        })
+
+    }
+ </script>
+</body>
+</html>
